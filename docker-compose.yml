@@ -7,6 +7,15 @@ services:
     restart: always
     volumes:
       - ./bot_data:/app/data
-    environment:
-      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
-      - POLL_INTERVAL=86400  # 1 day in seconds
+    env_file: .env
+
+  dashboard:
+    build: .
+    container_name: exam_tracker_dashboard
+    command: gunicorn --bind 0.0.0.0:5000 dashboard:app
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./bot_data:/app/data
+    env_file: .env
