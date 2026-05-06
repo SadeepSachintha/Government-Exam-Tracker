@@ -9,12 +9,28 @@ A lightweight, automated Telegram Bot that monitors the [Department of Examinati
 - **Smart Tracking:** Uses SQLite to remember which exams have already been broadcasted, preventing duplicate alerts.
 - **Docker Ready:** Includes a `Dockerfile` and `docker-compose.yml` for zero-dependency deployment anywhere.
 
-## 🚀 Local Development
+## 🚀 Quick Start (Linux / VM)
+
+If you are on a Linux VM, you can use the provided setup script to handle dependencies and run the bot automatically:
+
+```bash
+# 1. Clone and enter the directory
+git clone https://github.com/SadeepSachintha/Government-Exam-Tracker.git
+cd Government-Exam-Tracker
+
+# 2. Make the script executable
+chmod +x run.sh
+
+# 3. Run the bot
+./run.sh
+```
+
+## 💻 Manual Setup
 
 1. **Clone the repository:**
    ```bash
-   git clone <your-repo-url>
-   cd G-exams
+   git clone https://github.com/SadeepSachintha/Government-Exam-Tracker.git
+   cd Government-Exam-Tracker
    ```
 
 2. **Install dependencies:**
@@ -33,26 +49,21 @@ A lightweight, automated Telegram Bot that monitors the [Department of Examinati
 
 4. **Run the bot:**
    ```bash
-   python bot.py
+   python3 bot.py
    ```
 
 ## 🐳 Deployment (Docker / Ubuntu VM)
 
-1. **Install Docker & Docker Compose** (if not already installed):
+If you prefer using Docker for a clean, isolated environment:
+
+1. **Configure your `.env` file** as shown above.
+
+2. **Deploy the container:**
    ```bash
-   sudo apt update
-   sudo apt install docker.io docker-compose
-   sudo systemctl enable --now docker
+   sudo docker-compose up -d --build
    ```
 
-2. **Configure your `.env` file** as shown in the Local Development section.
-
-3. **Deploy the container:**
-   ```bash
-   sudo docker-compose up -d
-   ```
-
-4. **View live logs:**
+3. **View live logs:**
    ```bash
    sudo docker-compose logs -f
    ```
