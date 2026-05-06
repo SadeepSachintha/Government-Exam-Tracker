@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: exam_tracker_bot
+    restart: always
+    volumes:
+      - ./bot_data:/app/data
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - POLL_INTERVAL=86400  # 1 day in seconds
