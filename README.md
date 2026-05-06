@@ -1,46 +1,61 @@
-# SL Government Exam Tracker Bot
+# 🎓 SL Government Exam Tracker Bot
 
-A lightweight Telegram Bot designed to run in a Docker container and check for new government exams posted on [applications.doenets.lk/exams](https://applications.doenets.lk/exams).
+A lightweight, automated Telegram Bot that monitors the [Department of Examinations Sri Lanka](https://applications.doenets.lk/exams) website and instantly notifies subscribers when new government exams are posted.
 
-## Features
-- **Telegram Subscriptions:** Users can message the bot `/start` to subscribe and `/stop` to unsubscribe.
-- **Automated Polling:** Checks for new exams periodically (default is once a day).
-- **SQLite Database:** Stores active chat IDs and tracks which exams have already been notified to avoid duplicate alerts.
-- **Dockerized:** Ready to run in an Ubuntu VM or any Docker environment with zero external dependencies.
+## ✨ Features
+- **Real-time Notifications:** Get alerts directly on your phone as soon as an exam is published.
+- **Easy Subscriptions:** Users can easily opt-in or opt-out by messaging `/start` and `/stop`.
+- **Automated Polling:** Background jobs check for new exams periodically without manual intervention.
+- **Smart Tracking:** Uses SQLite to remember which exams have already been broadcasted, preventing duplicate alerts.
+- **Docker Ready:** Includes a `Dockerfile` and `docker-compose.yml` for zero-dependency deployment anywhere.
 
-## Deployment Instructions (Ubuntu VM)
+## 🚀 Local Development
 
-1. **Install Docker & Docker Compose** (if you haven't already):
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd G-exams
+   ```
+
+2. **Install dependencies:**
+   Make sure you have Python 3.8+ installed.
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Configure your environment:**
+   - Talk to [@BotFather](https://t.me/botfather) on Telegram to create a new bot and get your HTTP API Token.
+   - Create a `.env` file in the project root:
+     ```env
+     TELEGRAM_BOT_TOKEN=your_bot_token_here
+     POLL_INTERVAL=86400  # Interval in seconds (86400 = 24 hours)
+     ```
+
+4. **Run the bot:**
+   ```bash
+   python bot.py
+   ```
+
+## 🐳 Deployment (Docker / Ubuntu VM)
+
+1. **Install Docker & Docker Compose** (if not already installed):
    ```bash
    sudo apt update
    sudo apt install docker.io docker-compose
    sudo systemctl enable --now docker
    ```
 
-2. **Clone / Copy this directory to your VM.**
+2. **Configure your `.env` file** as shown in the Local Development section.
 
-3. **Configure the Telegram Bot:**
-   - Create a bot via [@BotFather](https://t.me/botfather) on Telegram and get the Token.
-   - Create a `.env` file in the root of this project:
-     ```env
-     TELEGRAM_BOT_TOKEN=your_bot_token_here
-     POLL_INTERVAL=86400
-     ```
-     *(Note: `POLL_INTERVAL` is in seconds. 86400 seconds = 24 hours. Change to 3600 for hourly testing).*
-
-4. **Deploy with Docker Compose:**
+3. **Deploy the container:**
    ```bash
    sudo docker-compose up -d
    ```
 
-5. **Verify it's running:**
+4. **View live logs:**
    ```bash
    sudo docker-compose logs -f
    ```
 
-## Local Development
-To run without Docker:
-1. `pip install -r requirements.txt`
-2. Configure `.env` with your `TELEGRAM_BOT_TOKEN`
-3. `python bot.py`
-# Government-Exam-Tracker
+---
+*Built with Python, python-telegram-bot, and Docker.*
