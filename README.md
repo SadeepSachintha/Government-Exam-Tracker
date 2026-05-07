@@ -2,16 +2,29 @@
 
 A lightweight, automated Telegram Bot that monitors the [Department of Examinations Sri Lanka](https://applications.doenets.lk/exams) website and instantly notifies subscribers when new government exams are posted.
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-d4af37?style=for-the-badge&logo=github)](https://SadeepSachintha.github.io/Government-Exam-Tracker/)
+
 ---
 
 ## ✨ Features
 
--   **Real-time Notifications:** Get alerts directly on your phone as soon as an exam is published.
--   **Premium Web Dashboard:** A beautiful, dark-mode web interface to monitor subscribers, tracked exams, and bot health in real-time.
--   **Easy Subscriptions:** Users can easily opt-in or opt-out by messaging `/start` and `/stop`.
--   **Automated Polling:** Background jobs check for new exams periodically (default: every 24h).
--   **Smart Tracking:** Uses SQLite to remember which exams have already been broadcasted, preventing duplicate alerts.
--   **Docker Ready:** Includes a `Dockerfile` and `docker-compose.yml` for zero-dependency deployment.
+-   **🚀 Real-time Notifications:** Get alerts directly on your phone as soon as an exam is published.
+-   **💎 Premium Web Dashboard:** A beautiful, dark-mode web interface to monitor subscribers, tracked exams, and bot health.
+-   **📈 Static Demo:** A hosted version of the dashboard available on GitHub Pages for quick previewing.
+-   **🤖 Easy Subscriptions:** Users can easily opt-in or opt-out by messaging `/start` and `/stop`.
+-   **🕒 Automated Polling:** Background jobs check for new exams periodically.
+-   **💾 Smart Tracking:** Uses SQLite to ensure no duplicate alerts are ever sent.
+-   **🐳 Docker Ready:** One-command deployment using Docker and Docker Compose.
+
+---
+
+## 🌐 Live Demo Dashboard
+
+Check out the interactive demo hosted on GitHub Pages:
+👉 **[SadeepSachintha.github.io/Government-Exam-Tracker/](https://SadeepSachintha.github.io/Government-Exam-Tracker/)**
+
+> [!NOTE]
+> The demo is a static snapshot of the system. For full live tracking functionality, deploy the bot using the instructions below.
 
 ---
 
@@ -35,7 +48,7 @@ chmod +x run.sh
 ```
 
 > [!TIP]
-> Once started, access the **Web Dashboard** at `http://your-vm-ip:5000`
+> Once started, access your **Live Web Dashboard** at `http://your-vm-ip:5000`
 
 ---
 
@@ -81,4 +94,8 @@ The dashboard is already running in the background.
 - **Solution**: Run `pkill -f dashboard.py` and restart `./run.sh`.
 
 ---
+
+### 👨‍💻 Developed by **Sadeep Sachintha**
+*All rights reserved &copy; 2026*
+
 *Built with Python, Flask, and ❤️ for students in Sri Lanka.*
