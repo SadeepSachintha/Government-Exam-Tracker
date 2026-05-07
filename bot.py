@@ -23,12 +23,17 @@ database.init_db()
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handles the /start command. Adds user to subscribers."""
     chat_id = update.effective_chat.id
+    username = update.effective_user.username
+    logger.info(f"Received /start command from user: {username} (ID: {chat_id})")
+    
     if database.add_subscriber(chat_id):
+        logger.info(f"New subscriber added: {chat_id}")
         await context.bot.send_message(
             chat_id=chat_id,
             text="Welcome to the SL Government Exam Tracker! 🎓\n\nYou are now subscribed. You will receive a notification here whenever a new exam is posted on applications.doenets.lk.\n\nTo unsubscribe, use /stop."
         )
     else:
+        logger.info(f"User {chat_id} already exists in subscribers.")
         await context.bot.send_message(
             chat_id=chat_id,
             text="You are already subscribed to notifications! 🔔\n\nUse /stop to unsubscribe."
@@ -37,6 +42,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handles the /stop command. Removes user from subscribers."""
     chat_id = update.effective_chat.id
+    logger.info(f"Received /stop command from user: {chat_id}")
     database.remove_subscriber(chat_id)
     await context.bot.send_message(
         chat_id=chat_id,
