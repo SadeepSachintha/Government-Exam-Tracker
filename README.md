@@ -11,7 +11,7 @@ A lightweight, automated Telegram Bot that monitors the [Department of Examinati
 -   **🚀 Real-time Notifications:** Get alerts directly on your phone as soon as an exam is published.
 -   **💎 Premium Web Dashboard:** A beautiful, dark-mode web interface to monitor subscribers, tracked exams, and bot health.
 -   **📈 Static Demo:** A hosted version of the dashboard available on GitHub Pages for quick previewing.
--   **🤖 Easy Subscriptions:** Users can easily opt-in or opt-out by messaging `/start` and `/stop`.
+-   **🤖 Interactive Commands:** Users can easily opt-in, check their status, or request immediate updates using commands like `/start`, `/status`, and `/latest`.
 -   **🕒 Automated Polling:** Background jobs check for new exams periodically.
 -   **💾 Smart Tracking:** Uses SQLite to ensure no duplicate alerts are ever sent.
 -   **🐳 Docker Ready:** One-command deployment using Docker and Docker Compose.
