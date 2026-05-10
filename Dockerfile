@@ -26,9 +26,6 @@ RUN chmod +x run.sh
 # Expose the dashboard port
 EXPOSE 5000
 
-# Set a volume for the database to persist data
-VOLUME ["/app/data"]
-
 # Run the startup script
 CMD ["./run.sh"]
 
