@@ -54,6 +54,14 @@ def get_subscribers():
     conn.close()
     return users
 
+def is_subscribed(chat_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT 1 FROM subscribers WHERE chat_id = ?", (chat_id,))
+    result = cursor.fetchone()
+    conn.close()
+    return result is not None
+
 def is_exam_new(exam_id, name):
     """
     Checks if an exam is new. If new, it adds to DB and returns True.

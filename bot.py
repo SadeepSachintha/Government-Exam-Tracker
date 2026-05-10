@@ -49,6 +49,65 @@ async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text="You have been unsubscribed from notifications. 🔕\n\nUse /start to subscribe again."
     )
 
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Handles the /help command."""
+    chat_id = update.effective_chat.id
+    text = (
+        "Here are the available commands:\n\n"
+        "/start - Subscribe to notifications for new exams 🔔\n"
+        "/stop - Unsubscribe from notifications 🔕\n"
+        "/status - Check your subscription status 📊\n"
+        "/latest - Fetch the currently ongoing exams immediately 🔄\n"
+        "/help - Show this help message ℹ️"
+    )
+    await context.bot.send_message(chat_id=chat_id, text=text)
+
+async def status_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Handles the /status command."""
+    chat_id = update.effective_chat.id
+    
+    is_sub = database.is_subscribed(chat_id)
+    status_text = "✅ Subscribed" if is_sub else "❌ Not Subscribed"
+    
+    text = (
+        f"📊 *Your Status*\n\n"
+        f"Notifications: {status_text}\n"
+    )
+    
+    await context.bot.send_message(chat_id=chat_id, text=text, parse_mode='Markdown')
+
+async def latest_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Handles the /latest command."""
+    chat_id = update.effective_chat.id
+    logger.info(f"Received /latest command from user: {chat_id}")
+    
+    await context.bot.send_message(chat_id=chat_id, text="Fetching latest exams... ⏳")
+    
+    exams = fetch_ongoing_exams()
+    if not exams:
+        await context.bot.send_message(chat_id=chat_id, text="No ongoing exams found at the moment or unable to fetch. 😔")
+        return
+        
+    await context.bot.send_message(chat_id=chat_id, text=f"Found {len(exams)} ongoing exam(s). Sending details... 📤")
+    
+    for exam in exams:
+        msg = (
+            f"📚 *{exam.get('name')}*\n\n"
+            f"💰 Fee: {exam.get('price')} LKR\n"
+            f"📅 Starts: {exam.get('start_date')}\n"
+            f"⏳ Ends: {exam.get('end_date')}\n\n"
+            f"🔗 [Apply Here](https://applications.doenets.lk/exams)"
+        )
+        try:
+            await context.bot.send_message(
+                chat_id=chat_id,
+                text=msg,
+                parse_mode='Markdown',
+                disable_web_page_preview=True
+            )
+        except Exception as e:
+            logger.error(f"Failed to send message to {chat_id}: {e}")
+
 async def check_exams_job(context: ContextTypes.DEFAULT_TYPE):
     """The job that runs periodically to check for new exams."""
     logger.info("Running scheduled exam check...")
@@ -104,6 +163,9 @@ def main():
     # Commands
     application.add_handler(CommandHandler('start', start))
     application.add_handler(CommandHandler('stop', stop))
+    application.add_handler(CommandHandler('help', help_command))
+    application.add_handler(CommandHandler('status', status_command))
+    application.add_handler(CommandHandler('latest', latest_command))
 
     # Job Queue (Runs daily. Interval is in seconds)
     # 86400 seconds = 1 day

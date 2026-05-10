@@ -58,6 +58,9 @@ chmod +x run.sh
 | :--- | :--- |
 | `/start` | Subscribe to receive notifications for new exams. |
 | `/stop` | Unsubscribe from the notification service. |
+| `/help` | Show all available commands. |
+| `/status`| Check your subscription status. |
+| `/latest`| Fetch the currently ongoing exams immediately. |
 
 ---
 
