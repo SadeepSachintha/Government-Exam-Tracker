@@ -1,25 +1,26 @@
 #!/bin/bash
+
+# Ensure we are in the app directory
 cd "$(dirname "$0")"
 
-# Trap SIGINT and SIGTERM to kill background processes when the script exits
-trap "kill 0" EXIT
+# Create data directory if it doesn't exist (for SQLite persistence)
+mkdir -p data
 
-if [ ! -d "venv" ]; then
-    echo "Creating virtual environment..."
-    python3 -m venv venv
+# Check if we are running in a container or locally
+if [ -f "venv/bin/activate" ]; then
+    echo "Activating virtual environment..."
+    source venv/bin/activate
+elif [ -d "venv" ]; then
+    echo "Venv exists but activate script not found. Skipping activation."
+else
+    echo "No virtual environment found. Running with system python (typical for Docker)."
 fi
 
-# Activate virtual environment
-source venv/bin/activate
-
-# Install requirements
-echo "Installing dependencies..."
-pip install -r requirements.txt
-
 # Start the dashboard in the background
-echo "Starting Dashboard on http://localhost:5000 ..."
+echo "Starting Dashboard..."
 python3 dashboard.py &
 
-# Run the bot
+# Start the bot in the foreground
 echo "Starting the bot..."
 python3 bot.py
+
